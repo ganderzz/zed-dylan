@@ -1,0 +1,14 @@
+==================
+Function definition
+==================
+
+define sealed function iff() => ()
+
+---
+
+(source_file
+  (function_definition
+    (modifier)
+    (function_word)
+    (identifier)
+      (parameters)))

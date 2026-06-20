@@ -1,0 +1,15 @@
+[[languages]]
+name = "Dylan"
+grammar = "dylan"
+path_suffixes = ["dylan", "lib"]
+line_comments = ["# "]
+first_line_pattern = "^#!.*\\b(?:dylan|opendylan)\\b"
+language_servers = [
+    { name = "dylan-lsp-server" }
+]
+brackets = [
+    { start = "{", end = "}", close = true, newline = true },
+    { start = "[", end = "]", close = true, newline = true },
+    { start = "(", end = ")", close = true, newline = true },
+    { start = "<", end = ">", close = true, newline = false },
+]

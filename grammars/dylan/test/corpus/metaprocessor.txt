@@ -1,0 +1,53 @@
+==================
+Metaprocessor full definition
+==================
+
+module TestModul
+synopsis just something for testing
+author Stefan Maassen
+copyright 2024
+version 0.1.0
+files metaprocessor.txt
+executable metatest
+library testlib
+
+---
+
+(source_file
+  (meta_preprocessor_dylan
+    (module
+      (string_literal))
+    (synopsis
+      (string_literal))
+    (author
+      (string_literal))
+    (copyright
+      (string_literal))
+    (version
+      (string_literal))
+    (files
+      (string_literal))
+    (executable
+      (string_literal))
+    (library
+      (string_literal))))
+
+
+==================
+Metaprocessor part definition
+==================
+
+module TestModul
+synopsis just something for testing
+author Stefan Maassen
+
+---
+
+(source_file
+  (meta_preprocessor_dylan
+    (module
+      (string_literal))
+    (synopsis
+      (string_literal))
+    (author
+      (string_literal))))
