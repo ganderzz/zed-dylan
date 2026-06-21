@@ -2,32 +2,26 @@
   "grammars": [
     {
       "name": "dylan",
-      "camelcase": "Dylan",
       "scope": "source.dylan",
       "path": ".",
-      "file-types": null,
+      "file-types": ["dylan"],
       "injection-regex": "^dylan$"
     }
   ],
   "metadata": {
     "version": "0.1.0",
     "license": "MIT",
-    "description": "tree-sitter parser for OpenDylan",
-    "authors": [
-      {
-        "name": "Stefan Maaßen"
-      }
-    ],
+    "description": "Tree-sitter grammar for the Dylan language (lexical, for syntax highlighting)",
     "links": {
-      "repository": "https://github.com/indika-dev/tree-sitter-opendylan"
+      "repository": "https://github.com/dylan/tree-sitter-dylan"
     }
   },
   "bindings": {
-    "c": true,
-    "go": true,
-    "node": true,
-    "python": true,
-    "rust": true,
-    "swift": true
+    "c": false,
+    "go": false,
+    "node": false,
+    "python": false,
+    "rust": false,
+    "swift": false
   }
 }

@@ -7,8 +7,8 @@ authors = ["Dylan Paulus <hello@dylanpaulus.com>"]
 repository = "https://github.com/dylan/zed-open-dylan"
 
 [grammars.dylan]
-repository = "https://github.com/indika-dev/tree-sitter-dylan"
-commit = "f49114a29f06b55853ba2ee96410973072b67d24"
+repository = "https://github.com/ganderzz/tree-sitter-dylan"
+commit = "acaca0932e456c2707880a14dae15747750746e9"
 
 [language_servers.dylan-lsp-server]
 languages = ["Dylan"]

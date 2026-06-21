@@ -1,18 +1,19 @@
 # Open Dylan Zed Extension
 
-Zed extension providing full Open Dylan language support — syntax highlighting, bracket matching, line comments, hover diagnostics and IDE completion via `lsp-dylan`.
+A Zed extension for the [Open Dylan](https://opendylan.org) language: syntax
+highlighting, bracket matching, comment toggling, and LSP features (hover,
+diagnostics, go-to-definition, completion) via `dylan-lsp-server`.
 
 ## Prerequisites
 
-This extension requires the **Open Dylan Language Server** (`dylan-lsp-server`) to be installed on your system. The extension itself does not bundle it (per Zed publishing rules).
+The extension does not bundle the language server (per Zed publishing rules).
+You need the **Open Dylan language server** (`dylan-lsp-server`) on your `PATH`.
 
-### Installing dylan-lsp-server
+### Installing `dylan-lsp-server`
 
-This extension needs the `dylan-lsp-server` binary on your PATH. Install it by:
+1. Install [Open Dylan](https://opendylan.org) (2023.1 or newer).
 
-1. Install [Open Dylan 2023.1 or newer](https://opendylan.org) following their official instructions
-   
-2. Clone and build `lsp-dylan`:
+2. Clone and build [`lsp-dylan`](https://github.com/dylan-lang/lsp-dylan):
    ```bash
    git clone --recursive https://github.com/dylan-lang/lsp-dylan
    cd lsp-dylan
@@ -20,67 +21,86 @@ This extension needs the `dylan-lsp-server` binary on your PATH. Install it by:
    make install
    ```
 
-3. Ensure the installation directory (typically `${DYLAN}/bin`, or `~/dylan/bin` if `DYLAN` is unset) is on your PATH:
+3. Confirm the install directory (typically `${DYLAN}/bin`, or `~/dylan/bin`
+   if `DYLAN` is unset) is on your `PATH`:
    ```bash
    which dylan-lsp-server
    ```
 
-## Syntax Highlighting
+## Features
 
-This extension uses the [indika-dev/tree-sitter-dylan](https://github.com/indika-dev/tree-sitter-dylan) grammar for syntax highlighting. Supported features:
+### Syntax highlighting
 
-- Full Dylan keyword and operator syntax
-- Line comments (`# ...`)
-- Block quotes (documentation strings)
-- Template literals and string interpolation
-- Module/library declaration highlighting
+Highlighting uses a tree-sitter grammar:
+[`ganderzz/tree-sitter-dylan`](https://github.com/ganderzz/tree-sitter-dylan).
+It is a lexical grammar whose token classes are derived from the official
+[`dylan-lang/vscode-dylan`](https://github.com/dylan-lang/vscode-dylan)
+TextMate grammar (DRM spec). It recognizes:
 
-## File Types
+- Control-flow, definer, and modifier keywords
+- DRM built-in functions
+- Type names by the `<name>` convention
+- Strings, raw strings (`#r"..."`), `#"symbols"`, characters
+- `keyword:` arguments
+- Numbers (decimal, `#x`/`#o`/`#b`)
+- Booleans (`#t`/`#f`), `#rest`/`#key`/`#all-keys`/`#next`
+- `\==` style operator references
+- `//` line comments and `/* */` block comments
 
-The extension recognizes files with the following extensions:
+The grammar is lexical, not full-syntax. It parses the great majority of real
+Dylan cleanly; macro-heavy and generated FFI files may show partial highlighting.
 
-- `.dylan` — Primary Dylan source file extension
-- `.lib` — Library definition files
+### Language server
 
-Files are also auto-detected by shebang lines matching `#!...dylan` or `#!...opendylan`.
+With `dylan-lsp-server` on `PATH`, the extension provides:
 
-## Usage in Zed
+- **Hover** — type information and argument lists
+- **Go to definition / declaration**
+- **Diagnostics** — compiler warnings inline
+- **Completion**
 
-### Development Installation
+### Editor behavior
 
-1. Open Zed
-2. Open Command Palette (`Cmd+Shift+P`)
-3. Run **"Extensions: Install Dev Extension"**
-4. Select the `zed-open-dylan` directory
-5. Open any `.dylan` file — syntax highlighting should activate immediately
+- Line comments — `//`
+- Block comments — `/* */`
+- Auto-closing brackets — `{}`, `[]`, `()`, `""`
 
-### Language Server Features
+## File types
 
-Once installed, the extension provides (requires `dylan-lsp-server` on PATH):
+Recognized by extension:
 
-- **Hover** — Type information and argument lists for definitions
-- **Jump to Definition** / **Jump to Declaration** — Navigate between symbols
-- **Diagnostics** — Compiler warnings displayed inline
-- **Auto-close brackets** — `{`, `[`, `(` auto-complete with matching pair
-- **Line comments** — `#` prefix for comment lines
+- `.dylan` — Dylan source files
+- `.lid` — Library Interchange Definition files
 
-### Publishing (Future)
+## Installing as a dev extension
 
-Once this extension is stable, it can be published to the Zed marketplace via:
+1. Open Zed.
+2. Command Palette (`Cmd+Shift+P`) → **Extensions: Install Dev Extension**.
+3. Select this directory (`zed-open-dylan`).
+4. Open a `.dylan` file — highlighting activates and the language server
+   connects if `dylan-lsp-server` is on `PATH`.
 
-1. Create PR to [zed-industries/extensions](https://github.com/zed-industries/extensions)
-2. Add as submodule in `extensions/open-dylan`
-3. Add entry to top-level `extensions.toml`
+If something goes wrong, check `~/Library/Logs/Zed/Zed.log` (macOS) for grammar
+compilation or `failed to load language` errors.
+
+## Publishing (future)
+
+To publish to the Zed extension registry:
+
+1. Open a PR to [zed-industries/extensions](https://github.com/zed-industries/extensions).
+2. Add this repo as a submodule under `extensions/open-dylan`.
+3. Add an entry to the top-level `extensions.toml`.
+
+The grammar is hosted at a public repository, which is required for publishing.
 
 ## Contributing
 
-Pull requests welcome! Please ensure any changes:
-
-- Follow TOML-only approach (no Rust required unless adding procedural behavior)
-- Include MIT license
-- Reference pinned commit hashes for tree-sitter dependencies
+- Keep the extension TOML-only (no Rust unless procedural behavior is needed).
+- Pin tree-sitter grammar dependencies to a specific commit.
+- Grammar changes live in
+  [`ganderzz/tree-sitter-dylan`](https://github.com/ganderzz/tree-sitter-dylan).
 
 ## License
 
-MIT — see LICENSE file.
-The `dylan-lsp-server` binary is licensed under its own MIT copyright held by Peter Hull.
+MIT — see [LICENSE](LICENSE). `dylan-lsp-server` is distributed separately under
+its own license by the Dylan Hackers / dylan-lang project.
