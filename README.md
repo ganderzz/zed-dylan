@@ -83,16 +83,6 @@ Recognized by extension:
 If something goes wrong, check `~/Library/Logs/Zed/Zed.log` (macOS) for grammar
 compilation or `failed to load language` errors.
 
-## Publishing (future)
-
-To publish to the Zed extension registry:
-
-1. Open a PR to [zed-industries/extensions](https://github.com/zed-industries/extensions).
-2. Add this repo as a submodule under `extensions/open-dylan`.
-3. Add an entry to the top-level `extensions.toml`.
-
-The grammar is hosted at a public repository, which is required for publishing.
-
 ## Contributing
 
 - Keep the extension TOML-only (no Rust unless procedural behavior is needed).
